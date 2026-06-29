@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "Estante SENAI - Download Livro",
+  "version": "1.0.0",
+  "description": "Baixa o PDF completo do livro aberto na Estante de Livros SENAI.",
+  "permissions": ["activeTab", "contextMenus", "scripting"],
+  "host_permissions": [
+    "https://estantedelivros.senai.br/*",
+    "https://api.recursosdidaticos.senai.br/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "Download livro (Estante SENAI)"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://estantedelivros.senai.br/*"],
+      "js": ["inject.js"],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
+      "matches": ["https://estantedelivros.senai.br/*"],
+      "js": ["content.js"],
+      "css": ["content.css"],
+      "run_at": "document_idle"
+    }
+  ]
+}
